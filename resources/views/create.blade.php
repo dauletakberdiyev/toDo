@@ -7,7 +7,7 @@
 @section('content')
     @include('navbar')
 
-    <form action="{{ route('store')}}" method="post" class="mt-4 p-4" enctype="multipart/form-data">
+    <form action="{{ route('todos.store')}}" method="post" class="mt-4 p-4" enctype="multipart/form-data">
         @csrf
         <div class="form-group m-3">
             <label for="name">Todo Name</label>

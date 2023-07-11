@@ -12,8 +12,9 @@ class ToDoController extends Controller
      *
      */
     public function index()
-    {
-        return view('main');
+    {   
+        $todos = ToDo::all();
+        return view('main')->with('todos', $todos);
     }
 
     /**
@@ -29,39 +30,36 @@ class ToDoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
-            'img'  => 'nullable',
+            'picture'  => 'nullable',
         ]);
         
-        $data = $request->all();
-        // $data['user_id'] = 1;
+        $imageName = time().'.'.$request->picture->extension();
+        $request->picture->move(public_path('images'), $imageName);
 
-        ToDo::create($data);
+        $data = $request->all();
+        $data['picture'] = $imageName;
         
-        // $todo->name = $data['name'];
-        // $todo->description = $data['description'];
-        // $todo->save();
+        ToDo::create($data);
 
         session()->flash('success', 'WE did IT');
-        // dd($data);
-        return redirect('/');
+
+        return redirect('/todos');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ToDo  $toDo
-     * @return \Illuminate\Http\Response
      */
-    public function show(ToDo $toDo)
+    public function show($id)
     {
-        //
+        $todo = ToDo::findOrFail($id);
+        return view('detail')->with('todo', $todo);
     }
 
     /**

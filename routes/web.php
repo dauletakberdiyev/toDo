@@ -29,4 +29,4 @@ Route::get('/register', function () {
 // Route::get('/create', function () {
 //     return view('create');
 // });
-Route::resource('/', ToDoController::class);
+Route::resource('/todos', ToDoController::class);
