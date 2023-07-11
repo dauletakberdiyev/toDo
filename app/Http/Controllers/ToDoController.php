@@ -44,7 +44,7 @@ class ToDoController extends Controller
 
         $data = $request->all();
         $data['picture'] = $imageName;
-        
+
         ToDo::create($data);
 
         session()->flash('success', 'WE did IT');
@@ -65,24 +65,45 @@ class ToDoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ToDo  $toDo
-     * @return \Illuminate\Http\Response
      */
-    public function edit(ToDo $toDo)
+    public function edit($id)
     {
-        //
+        $todo = ToDo::findOrFail($id);
+        return view('edit')->with('todo', $todo);;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ToDo  $toDo
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ToDo $toDo)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'desc' => 'required',
+            'picture'  => 'nullable',
+            'delPicture' => 'nullable',
+        ]);
+
+        $todo = ToDo::findOrFail($id);
+        $data = $request->all();
+
+        $todo->name = $data['name'];
+        $todo->desc = $data['desc'];
+        if(isset($data['picture'])){
+            $imageName = time() . '.' . $request->picture->extension();
+            $request->picture->move(public_path('images'), $imageName);
+            $todo->picture = $imageName;
+        }
+        if(isset($data['delPicture'])){
+            $todo->picture = null;
+        }
+        $todo->save();
+
+        session()->flash('success', 'Todo updated successfully');
+
+        return redirect('/todos/'.$id);
     }
 
     /**

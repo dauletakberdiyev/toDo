@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    Details
+    Details TODO
 @endsection
 
 @section('content')
@@ -20,9 +20,10 @@
                     src="{{URL::to('/')}}/images/{{$todo->picture}}" 
                     width="150" height="150"
                     onclick="onClickImg(this.currentSrc)"
+                    style="cursor: pointer"
                 >
             </div>
-            <a href="edit/{{$todo->id}}"><span class="btn btn-primary">Edit</span></a>
+            <a href="{{$todo->id}}/edit"><span class="btn btn-primary">Edit</span></a>
             <a href="delete/{{$todo->id}}"><span class="btn btn-danger">Delete</span></a>
         </div>
 </div>
