@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ToDoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('main');
+// });
+Route::get('/login', function () {
+    return view('login');
 });
+Route::get('/register', function () {
+    return view('register');
+});
+// Route::get('/toDo', function () {
+//     return view('main');
+// });
+// Route::get('/create', function () {
+//     return view('create');
+// });
+Route::resource('/', ToDoController::class);
