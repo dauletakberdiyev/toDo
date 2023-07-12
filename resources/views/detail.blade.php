@@ -23,8 +23,14 @@
                     style="cursor: pointer"
                 >
             </div>
-            <a href="{{$todo->id}}/edit"><span class="btn btn-primary">Edit</span></a>
-            <a href="delete/{{$todo->id}}"><span class="btn btn-danger">Delete</span></a>
+            <div class="d-flex justify-content-center mt-3">
+                <a href="{{$todo->id}}/edit" class="me-3"><span class="btn btn-primary">Edit</span></a>
+                <form action="{{ route('todos.destroy', $todo->id) }}" method="post">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                    @method('delete')
+                    @csrf
+                </form>
+            </div>
         </div>
 </div>
 @endsection
