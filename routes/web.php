@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ToDoController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,19 +14,16 @@ use App\Http\Controllers\ToDoController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('main');
-// });
-Route::get('/login', function () {
-    return view('login');
+Route::get('/', function () {
+    return view('todos');
 });
-Route::get('/register', function () {
-    return view('register');
-});
-// Route::get('/toDo', function () {
-//     return view('main');
-// });
-// Route::get('/create', function () {
-//     return view('create');
-// });
-Route::resource('/todos', ToDoController::class);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::resource('/todos', ToDoController::class)->middleware(['auth']);
+Route::get('/todos/{id}/assign', [ToDoController::class, 'assign_view'])->middleware(['auth']);
+Route::post('/todos/{id}/assign', [ToDoController::class, 'assign'])->middleware(['auth'])->name('todos.assign');
+
+require __DIR__.'/auth.php';

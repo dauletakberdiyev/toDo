@@ -1,4 +1,4 @@
-@extends('app')
+@extends('welcome')
 
 @section('title')
     To Do
@@ -6,12 +6,6 @@
 
 @section('content')
     @include('navbar')
-
-    @if(session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
-        </div>
-    @endif
 
     <div class="row mt-3">
         <div class="col-12 align-self-center">

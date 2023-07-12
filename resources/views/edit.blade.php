@@ -1,10 +1,11 @@
-@extends('app')
+@extends('welcome')
 
 @section('title')
     Edit TODO
 @endsection
 
 @section('content')
+    @include('navbar')
     <form action="{{ route('todos.update',  $todo->id) }}" method="post" class="mt-4 p-4" enctype="multipart/form-data">
         @method('put')
         @csrf

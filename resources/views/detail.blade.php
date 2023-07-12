@@ -1,4 +1,4 @@
-@extends('app')
+@extends('welcome')
 
 @section('title')
     Details TODO
@@ -26,12 +26,13 @@
                 </div>
             @endif
             <div class="d-flex justify-content-center mt-3">
-                <a href="{{$todo->id}}/edit" class="me-3"><span class="btn btn-primary">Edit</span></a>
+                <a href="{{$todo->id}}/edit" class="me-3 btn btn-primary">Edit</a>
                 <form action="{{ route('todos.destroy', $todo->id) }}" method="post">
                     <input type="submit" class="btn btn-danger" value="Delete">
                     @method('delete')
                     @csrf
                 </form>
+                <a href="{{$todo->id}}/assign" class="btn btn-info ms-3">Assign</a>
             </div>
         </div>
 </div>

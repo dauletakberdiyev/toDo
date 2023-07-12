@@ -1,4 +1,4 @@
-@extends('app')
+@extends('welcome')
 
 @section('title')
     Create TODO
@@ -22,7 +22,6 @@
             <label for="picture">Todo Image</label>
             <input type="file" class="form-control" name="picture" id="picture" accept="image/*">
         </div>
-        <input type="hidden" name="user_id" value="1" id="user_id">
         <div class="form-group m-3">
             <input type="submit" class="btn btn-primary float-end" value="Submit" id="submit">
         </div>

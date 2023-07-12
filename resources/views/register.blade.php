@@ -1,4 +1,4 @@
-@extends('app')
+@extends('welcome')
 
 @section('title')
     Register
