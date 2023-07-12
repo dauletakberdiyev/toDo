@@ -36,20 +36,23 @@ class ToDoController extends Controller
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
-            'picture'  => 'nullable',
+            'picture' => 'nullable',
+            'user_id' => 'required'
         ]);
-        
-        $imageName = time().'.'.$request->picture->extension();
-        $request->picture->move(public_path('images'), $imageName);
-
         $data = $request->all();
-        $data['picture'] = $imageName;
+    
+        if(isset($data['picture'])){
+            $imageName = time().'.'.$request->picture->extension();
+            $request->picture->move(public_path('images'), $imageName);
+            $data['picture'] = $imageName;
+        }
 
         ToDo::create($data);
 
-        session()->flash('success', 'WE did IT');
-
-        return redirect('/todos');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Tode created successfully'
+        ]);
     }
 
     /**

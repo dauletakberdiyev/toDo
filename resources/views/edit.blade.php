@@ -6,7 +6,7 @@
 
 @section('content')
     <form action="{{ route('todos.update',  $todo->id) }}" method="post" class="mt-4 p-4" enctype="multipart/form-data">
-        {{ method_field('PUT') }}
+        @method('put')
         @csrf
         <div class="form-group m-3">
             <label for="name" class="fw-bold">Todo Name</label>
