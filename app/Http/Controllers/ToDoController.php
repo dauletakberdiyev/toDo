@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ToDo;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 class ToDoController extends Controller
 {
     /**
@@ -91,12 +91,20 @@ class ToDoController extends Controller
 
         $todo->name = $data['name'];
         $todo->desc = $data['desc'];
-        if(isset($data['picture'])){
+        $oldImagePath = public_path('/images/'.$todo->picture);
+
+        if(isset($data['picture'])){ 
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
             $imageName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('images'), $imageName);
             $todo->picture = $imageName;
         }
         if(isset($data['delPicture'])){
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
             $todo->picture = null;
         }
         $todo->save();
